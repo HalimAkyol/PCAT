@@ -1,0 +1,112 @@
+<%-include('partials/header.ejs');%>
+<body>
+	<div class="tm-page-wrap mx-auto">
+		<div class="position-relative">
+			<%- include('partials/navbar.ejs')%>
+			<div class="tm-welcome-container tm-fixed-header tm-fixed-header-2">
+				<div class="text-center">
+					<p class="pt-5 px-3 tm-welcome-text tm-welcome-text-2 mb-1 mt-lg-0 mt-5 text-white mx-auto">Another Image BG<br>it can be fixed.<br>Content will simply slide over.</p>                	
+				</div>                
+            </div>
+
+            <div id="tm-fixed-header-bg"></div> <!-- Header image -->
+		</div>
+
+		<!-- Page content -->
+		
+		<main>			
+			<div class="container-fluid px-0">
+
+				<div class="mx-auto tm-content-container">					
+					<div class="row mt-3 mb-5 pb-3">
+						<div class="col-12">
+							<div class="mx-auto tm-about-text-container px-3">
+								<img src="<%=singlePhoto.url?singlePhoto.url:'https://dummyimage.com/1920X1280.png/ccc/000&text=NO IMAGE'%>" class="img-fluid" alt="Responsive image">
+							</div>							
+						</div>						
+					</div>					
+				</div>
+				<div class="row">
+					
+				</div>
+				<div class="col-xl-12 col-lg-5">
+					<!-- Share box -->
+					<div class="tm-bg-gray tm-share-box">
+						<div class="text-center">
+							<button class="btn btn-primary p-0 mb-4 tm-btn-animate tm-btn-download tm-icon-download" data-toggle="modal"
+								data-target="#exampleModal"><span>Update
+									Details</span></button>
+						</div>
+						<div class="text-center">
+							<a href="/photos/deletePhoto?id=<%=singlePhoto._id%>"
+								class="btn btn-danger p-0 tm-btn-animate tm-btn-download tm-icon-download">
+								<span>DeletePhoto</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				
+
+				<div class="mx-auto tm-content-container mt-4 px-3">
+					<div class="row mb-4">
+						<% for (photo of AllPhoto){%> 
+							<div class="col-lg-4 col-md-6 ma_bottom30">
+								<div class="lightbox">
+								   <img src="<%= photo.url? photo.url : 'https://dummyimage.com/454X300.png/ccc/000&text=NO IMAGE'%>" alt="Bridge">
+								   <div class="view_main">
+									 <div class="pose">
+									 <a class="read_more" href="/photos/read-more?id=<%=photo._id%>"><img src="<%=photo.url?photo.url:'https://dummyimage.com/100X100.png/ccc/000&text=NO IMAGE'%>" class="read_more" alt="#"/></a>
+									 <p><%= photo.name %><br><%= photo.fileTitle %> </p>
+								   </div>
+								   </div>
+								</div>
+							 </div>	
+						<%}%>
+
+		            </div>
+				</div>
+				
+			</div>
+		</main>
+
+		<div class="container-fluid tm-content-container mx-auto pt-5">
+			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title" id="exampleModalLabel">Picture upload form</h1>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<form action="/photos/update" id="fileForm" method="post" enctype="multipart/form-data">
+						<div class="modal-body">
+							<div class="form-group">
+								<div class="col-12">
+									<input type="text" class="form-control" value="<%=singlePhoto.fileTitle%>" name="fileTitle" id="fileTitle"
+										placeholder="Picture Title">
+								</div>
+							</div>
+							<div class="form-group mt-4">
+								<div class="col-12">
+									<textarea name="fileDescription" class="form-control" placeholder="Açıklama" id="fileDescription" cols="51" rows="3">
+										<%=singlePhoto.fileDescription%>
+									</textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputFile"></label>
+								<input type="file" class="form-control-file ml-4" name="image">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary tm-btn-small" data-dismiss="modal">Cancel</button>
+							<button type="submit" class="btn btn-primary tm-btn-small"> Upload</button>
+							<input type="hidden" value="<%=singlePhoto._id%>" name="hiddenId">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+			<%- include('partials/footer.ejs'); %>
