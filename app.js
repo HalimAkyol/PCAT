@@ -1,10 +1,13 @@
 import express from 'express';
+var app = express();
+
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
 import routePage from './routes/routePage.js';
 import routePhoto from'./routes/routePhoto.js';
-import mongoose from 'mongoose';
 import { v2 as cloudinary} from 'cloudinary';
 import fileUpload from 'express-fileupload';
-import dotenv from 'dotenv';
 
 dotenv.config();
 cloudinary.config({
@@ -17,14 +20,15 @@ mongoose.connect('mongodb://localhost:27017/PCAT',(err,db)=>{
         console.log('connect to PCAT');        
     }else{console.log('disconnect to PCAT');}
 });
+app.set('view engine','ejs');
+app.use(express.static('public'));
 
-var app = express();
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-app.use(express.static('public'));
-app.set('view engine','ejs');
 app.use(fileUpload({useTempFiles:true}));
+
 app.use('/', routePage);
 app.use('/photos',routePhoto);
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);

@@ -1,0 +1,53 @@
+<%- include('partials/header.ejs') %>
+<body>
+    <div class="position-relative">
+        <%- include('partials/navbar.ejs')%>
+        <div id="tm-video-container">
+            <video autoplay muted loop id="tm-video">
+                <!-- <source src="video/sunset-timelapse-video.mp4" type="video/mp4"> -->
+                <source src="video/wheat-field.mp4" type="video/mp4">
+            </video>
+        </div>
+        <i id="tm-video-control-button" class="fas fa-plus"></i>
+    </div>
+    <div class="container mt-5">
+        <form action="/photos/create" id="fileForm" method="post" enctype="multipart/form-data">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h1>Upload File Form</h1>
+                </div>
+                <div class="card-body">
+
+                    <div class="form-group mt-4">
+                        <div class="col-12">
+                            <input type="text" class="form-control" name="fileTitle" id="fileTitle"
+                                placeholder="Picture Title">
+                        </div>
+                        <div class="col-12">
+                            <div style="display:none;" class="alert alert-danger" id="errorFileTitle"></div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-4">
+                        <div class="col-12">
+                            <textarea name="fileDescription" name="fileDescription" class="form-control" placeholder="Açıklama"
+                                id="fileDescription" cols="51" rows="3"></textarea>
+                        </div>
+                        <div class="col-12">
+                            <div style="display:none;" class="alert alert-danger" id="errorFileDescription"> </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="file" name="image" class="form-control-file ml-4" id="imagePhoto">
+                        <div class="col-12">
+                            <div style="display:none;" class="alert alert-danger" accept="image/*" id="errorImagePhoto">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-right">
+                    <button type="submit" class="btn btn-primary tm-btn-small"> Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <%- include('partials/footer.ejs') %>

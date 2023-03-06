@@ -11,24 +11,25 @@
 
             <div id="tm-fixed-header-bg"></div> <!-- Header image -->
 		</div>
-
 		<!-- Page content -->
-		
 		<main>			
-			<div class="container-fluid px-0">
-
+			<div class="container">
 				<div class="mx-auto tm-content-container">					
 					<div class="row mt-3 mb-5 pb-3">
 						<div class="col-12">
 							<div class="mx-auto tm-about-text-container px-3">
-								<img src="<%=singlePhoto.url?singlePhoto.url:'https://dummyimage.com/1920X1280.png/ccc/000&text=NO IMAGE'%>" class="img-fluid" alt="Responsive image">
+								<img src="<%=singlePhoto.url? singlePhoto.url : `https://dummyimage.com/1920X1280.png/ccc/000&text=No IMAGE`%>" class="img-fluid" alt="Responsive image">
 							</div>							
-						</div>						
-					</div>					
+						</div>					
+					</div>	
+					<div class="row">
+						<p>File Title : </p>	<h1><%=singlePhoto.fileTitle%></h1>						
+					</div>
+					<div class="row">
+						<p>File Description :</p> <h3><%=singlePhoto.fileDescription%></h3>
+					</div>
 				</div>
-				<div class="row">
-					
-				</div>
+			
 				<div class="col-xl-12 col-lg-5">
 					<!-- Share box -->
 					<div class="tm-bg-gray tm-share-box">

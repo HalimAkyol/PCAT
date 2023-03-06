@@ -70,13 +70,13 @@
                                         <div style="display:none;" class="alert alert-danger" id="errorFileDescription"></div>
                                     </div>
                                 </div>
-                                <!-- <div class="form-group">
+                                <div class="form-group">
                                     <label for="inputFile"></label>
                                     <input type="file" class="form-control-file ml-4" name="image" id="imagePhoto">
                                     <div class="col-12">
                                         <div style="display:none;" class="alert alert-danger" id="errorImagePhoto"></div>
                                     </div>
-                                </div> -->
+                                </div>
 
                             </div>
                             <div class="modal-footer">
@@ -97,12 +97,11 @@
                    e.preventDefault();
                    errorFileTitle.textContent = "";
                    errorFileDescription.textContent = "";
-                   errorFileTitle.style.display = "none"
-                   errorFileDescription.style.display = "none"
+                   errorFileTitle.style.display = "none";
+                   errorFileDescription.style.display = "none";
                  
-                   const fileTitle = form.fileTitle.value
-                   const fileDescription = form.fileDescription.value
-            
+                   const fileTitle = form.fileTitle.value;
+                   const fileDescription = form.fileDescription.value;
                    
                    try {
                       const res = await fetch('photos/create', {
@@ -111,10 +110,9 @@
                          headers: { "Content-Type": "application/json" }
                       })
                       const data = await res.json();  
-                      if(data.photo){
-                        window.location.replace('photos.ejs');
-                        window.location.
-                    }
+                     if(data.photo){
+                      window.location.replace('photos');
+                      }
                       if (!data.photo) 
                       {
                         if (data.errorMessage.fileTitle) {
@@ -126,11 +124,11 @@
                             errorFileDescription.textContent = data.errorMessage.fileDescription.message
                             errorFileDescription.style.display = "block"
                          }
-                    }
+                      }
 
                    } 
                    catch (err) {
-                      console.log("ERROR register :", err.name);
+                      console.log("ERROR register :", err.message);
                       
                    }
                    

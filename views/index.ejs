@@ -15,10 +15,12 @@
             <div id="content" class="mx-auto tm-content-container">
                 <main>
                     <div class="row">
-                       <% for(photo of AllPhoto){ %>
+                       <% for(photo of AllPhoto){
+                        
+                        %>
                         <div class="col-lg-4 col-md-6 col-sm-12 tm-catalog-item">
                             <div class="position-relative tm-thumbnail-container">
-                                <img src="<%=photo.url? photo.url : 'https://dummyimage.com/1920X1280.png/ccc/000'%>" alt="Image" class="img-fluid tm-catalog-item-img">    
+                                <img src="<%=photo.url?photo.url : `https://dummyimage.com/1920X1280.png/ccc/000&text=IMAGE`%>" alt="Image" class="img-fluid tm-catalog-item-img">
                                 <a href="/photos/read-more?id=<%=photo._id%>" class="position-absolute tm-img-overlay">
                                     <i class="fas fa-play tm-overlay-icon"></i>
                                 </a>
@@ -32,9 +34,101 @@
                         </div>
                         <%}%>                        
                     </div>
-                    <div class="text-center">
+                    <!-- <div class="text-center">
                         <button class="btn btn-primary mb-4 " data-toggle="modal" data-target="#exampleModal"><span>Add
                                 Photo</span></button>
-                    </div>
+                        </div> -->
                 </main>
+           <!-- burayı sonra düşünürüz -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title" id="exampleModalLabel">Picture Add Form</h1>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form action="/photos/create" id="fileForm" method="post" enctype="multipart/form-data">
+                                <div class="modal-body">
+                                    <div class="form-group mt-4">
+                                        <div class="col-12">
+                                            <input type="text" class="form-control" name="fileTitle" id="fileTitle" placeholder="Picture Title">
+                                        </div>
+                                        <div class="col-12">
+                                           <div style="display:none;" class="alert alert-danger" id="errorFileTitle"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mt-4">
+                                        <div class="col-12">
+                                            <textarea name="fileDescription" class="form-control" placeholder="Açıklama" id="fileDescription" cols="51" rows="3"></textarea>
+                                        </div>
+                                        <div class="col-12">
+                                          <div style="display:none;" class="alert alert-danger" id="errorFileDescription"> </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="file" name="image" class="form-control-file ml-4" id="imagePhoto">
+                                        <div class="col-12">
+                                            <div style="display:none;" class="alert alert-danger" accept="image/*" id="errorImagePhoto"></div>
+                                        </div>
+                                    </div>
+    
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary tm-btn-small" data-dismiss="modal">İptal</button>
+                                    <button type="submit" class="btn btn-primary tm-btn-small" > Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+             
                 <%- include('partials/footer.ejs') %>
+                <!-- <script>
+
+                    const form = document.querySelector('#fileForm')
+                    const errorFileTitle = document.querySelector('#errorFileTitle')
+                    const errorFileDescription = document.querySelector('#errorFileDescription')
+                    form.addEventListener("submit", async (e) => {
+                       e.preventDefault();
+                       errorFileTitle.textContent = "";
+                       errorFileDescription.textContent = "";
+                       errorFileTitle.style.display = "none";
+                       errorFileDescription.style.display = "none";
+                     
+                       const fileTitle = form.fileTitle.value;
+                       const fileDescription = form.fileDescription.value;
+                       //const imagePhoto = form.imagePhoto.value;
+                       
+                       try {
+                          const res = await fetch('/photos/create', {
+                             method: "POST",
+                             body: JSON.stringify({ fileTitle, fileDescription}),
+                             headers: { "Content-Type": "application/json" }
+                          })
+                          const data = await res.json();  
+                         if(data.photo){
+                          window.location.replace('index');
+                          }
+                          if (!data.photo) 
+                          {
+                            if (data.errorMessage.fileTitle) {
+                                errorFileTitle.textContent = data.errorMessage.fileTitle.message
+                                errorFileTitle.style.display = "block"
+                             }
+                             
+                             if ( data.errorMessage.fileDescription) {
+                                errorFileDescription.textContent = data.errorMessage.fileDescription.message
+                                errorFileDescription.style.display = "block"
+                             }
+                          }
+                       } 
+                       catch (err) {
+                          console.log("ERROR register :", err.message);
+                          
+                       }
+                       
+                    })
+                   
+                 </script> -->
